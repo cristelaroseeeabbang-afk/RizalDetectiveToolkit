@@ -1,0 +1,3033 @@
+<!DOCTYPE html>
+<html lang="fil">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Rizal Detective Kit</title>
+
+<style>
+:root{
+    --bg:#071019;
+    --bg2:#122131;
+    --glass:rgba(16,29,43,.80);
+    --glass2:rgba(255,255,255,.07);
+    --text:#f4f7fb;
+    --muted:#aebccc;
+    --gold:#e8b94e;
+    --blue:#62afff;
+    --green:#49d982;
+    --red:#ff6576;
+    --border:rgba(255,255,255,.12);
+    --shadow:0 20px 60px rgba(0,0,0,.35);
+}
+
+body.light{
+    --bg:#eef3f8;
+    --bg2:#dce6f0;
+    --glass:rgba(255,255,255,.84);
+    --glass2:rgba(0,0,0,.045);
+    --text:#17202a;
+    --muted:#536170;
+    --gold:#8a5a00;
+    --blue:#1769aa;
+    --green:#167a43;
+    --red:#c6283d;
+    --border:rgba(0,0,0,.12);
+    --shadow:0 20px 50px rgba(45,65,85,.18);
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    min-height:100vh;
+    font-family:Arial,Helvetica,sans-serif;
+    color:var(--text);
+    background:
+        radial-gradient(circle at 10% 20%,rgba(98,175,255,.12),transparent 30%),
+        radial-gradient(circle at 90% 80%,rgba(232,185,78,.10),transparent 30%),
+        linear-gradient(135deg,var(--bg),var(--bg2));
+    overflow-x:hidden;
+    transition:.3s ease;
+}
+
+/* BACKGROUND */
+
+.bg-orb{
+    position:fixed;
+    border-radius:50%;
+    filter:blur(80px);
+    opacity:.22;
+    pointer-events:none;
+    z-index:-1;
+}
+
+.orb1{
+    width:280px;
+    height:280px;
+    background:#247cff;
+    top:10%;
+    left:-100px;
+}
+
+.orb2{
+    width:300px;
+    height:300px;
+    background:#e8b94e;
+    right:-120px;
+    top:45%;
+}
+
+.orb3{
+    width:220px;
+    height:220px;
+    background:#8a5cff;
+    bottom:-80px;
+    left:40%;
+}
+
+/* NAVBAR */
+
+.navbar{
+    position:sticky;
+    top:15px;
+    z-index:100;
+    width:min(94%,1100px);
+    margin:15px auto;
+    padding:15px 20px;
+    border:1px solid var(--border);
+    background:var(--glass);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border-radius:20px;
+    box-shadow:var(--shadow);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+    font-weight:900;
+    letter-spacing:1.5px;
+    color:var(--gold);
+    font-size:18px;
+}
+
+.nav-actions{
+    display:flex;
+    gap:10px;
+}
+
+.nav-btn{
+    border:1px solid var(--border);
+    background:var(--glass2);
+    color:var(--text);
+    border-radius:12px;
+    padding:9px 13px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:.2s;
+}
+
+.nav-btn:hover{
+    transform:translateY(-2px);
+    border-color:var(--gold);
+}
+
+/* MAIN */
+
+main{
+    width:min(94%,900px);
+    margin:40px auto 70px;
+}
+
+.screen{
+    display:none;
+    animation:fadeIn .45s ease;
+}
+
+.screen.active{
+    display:block;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(12px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* CARD */
+
+.card{
+    background:var(--glass);
+    border:1px solid var(--border);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border-radius:28px;
+    box-shadow:var(--shadow);
+    padding:35px;
+}
+
+.hero{
+    text-align:center;
+}
+
+.badge{
+    display:inline-block;
+    padding:8px 14px;
+    border-radius:50px;
+    background:rgba(232,185,78,.12);
+    color:var(--gold);
+    border:1px solid rgba(232,185,78,.30);
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:1px;
+    margin-bottom:18px;
+}
+
+.hero h1{
+    font-size:clamp(32px,7vw,65px);
+    line-height:1.05;
+    margin-bottom:15px;
+}
+
+.hero h1 span{
+    color:var(--gold);
+}
+
+.hero p{
+    color:var(--muted);
+    max-width:680px;
+    margin:0 auto 25px;
+    line-height:1.7;
+}
+
+/* DETECTIVE ICON */
+
+.detective-icon{
+    width:105px;
+    height:105px;
+    margin:0 auto 20px;
+    border-radius:30px;
+    background:linear-gradient(145deg,var(--gold),#755000);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:52px;
+    box-shadow:0 15px 40px rgba(232,185,78,.2);
+}
+
+/* INPUT */
+
+.input-group{
+    max-width:500px;
+    margin:25px auto;
+}
+
+.input-group label{
+    display:block;
+    text-align:left;
+    margin-bottom:8px;
+    font-size:13px;
+    font-weight:bold;
+    color:var(--muted);
+}
+
+input{
+    width:100%;
+    padding:16px 18px;
+    border-radius:15px;
+    border:1px solid var(--border);
+    outline:none;
+    background:var(--glass2);
+    color:var(--text);
+    font-size:16px;
+}
+
+input:focus{
+    border-color:var(--gold);
+}
+
+/* BUTTONS */
+
+.primary-btn{
+    border:none;
+    background:linear-gradient(135deg,var(--gold),#b77d00);
+    color:#111;
+    font-weight:900;
+    padding:15px 25px;
+    border-radius:15px;
+    cursor:pointer;
+    font-size:15px;
+    transition:.2s;
+    box-shadow:0 10px 25px rgba(232,185,78,.18);
+}
+
+.primary-btn:hover{
+    transform:translateY(-3px);
+}
+
+.secondary-btn{
+    border:1px solid var(--border);
+    background:var(--glass2);
+    color:var(--text);
+    padding:13px 20px;
+    border-radius:14px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.secondary-btn:hover{
+    border-color:var(--gold);
+}
+
+/* DISCLAIMER */
+
+.disclaimer{
+    max-width:720px;
+    margin:25px auto 0;
+    padding:18px 20px;
+    border-radius:18px;
+    background:rgba(232,185,78,.08);
+    border:1px solid rgba(232,185,78,.25);
+    text-align:left;
+}
+
+.disclaimer-title{
+    color:var(--gold);
+    font-weight:900;
+    margin-bottom:8px;
+}
+
+.disclaimer p{
+    margin:0;
+    font-size:13px;
+    line-height:1.65;
+    color:var(--muted);
+}
+
+/* SECTION TITLE */
+
+.section-title{
+    text-align:center;
+    margin-bottom:28px;
+}
+
+.section-title .small{
+    color:var(--gold);
+    font-weight:900;
+    font-size:12px;
+    letter-spacing:2px;
+}
+
+.section-title h2{
+    font-size:clamp(28px,5vw,44px);
+    margin:7px 0;
+}
+
+.section-title p{
+    color:var(--muted);
+}
+
+/* MISSION */
+
+.mission-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+    margin:25px 0;
+}
+
+.mission{
+    padding:22px;
+    border:1px solid var(--border);
+    background:var(--glass2);
+    border-radius:20px;
+    text-align:center;
+    cursor:pointer;
+    user-select:none;
+    -webkit-tap-highlight-color:transparent;
+    transition:
+        transform .28s ease,
+        box-shadow .28s ease,
+        border-color .28s ease,
+        background .28s ease;
+}
+
+.mission:hover{
+    transform:translateY(-6px);
+    border-color:rgba(232,185,78,.45);
+    box-shadow:0 14px 30px rgba(0,0,0,.18);
+}
+
+.mission.selected{
+    transform:translateY(-12px) scale(1.035);
+    border-color:var(--gold);
+    background:var(--glass);
+    box-shadow:0 22px 42px rgba(0,0,0,.28);
+}
+
+.mission .icon{
+    font-size:35px;
+    margin-bottom:10px;
+    transition:transform .28s ease;
+}
+
+.mission.selected .icon{
+    transform:translateY(-5px) scale(1.12);
+}
+
+.mission h3{
+    color:var(--gold);
+    margin-bottom:7px;
+}
+
+.mission p{
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.5;
+}
+
+/* CLUES */
+
+.clue-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.clue{
+    position:relative;
+    border:1px solid var(--border);
+    background:var(--glass2);
+    border-radius:20px;
+    padding:22px;
+    min-height:170px;
+    cursor:pointer;
+    overflow:hidden;
+    user-select:none;
+    -webkit-tap-highlight-color:transparent;
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease,
+        border-color .3s ease,
+        background .3s ease;
+    animation:clueFloat 4s ease-in-out infinite;
+}
+
+.clue:nth-child(2){
+    animation-delay:.35s;
+}
+
+.clue:nth-child(3){
+    animation-delay:.7s;
+}
+
+.clue:nth-child(4){
+    animation-delay:1.05s;
+}
+
+.clue:nth-child(5){
+    animation-delay:1.4s;
+}
+
+.clue:nth-child(6){
+    animation-delay:1.75s;
+}
+
+@keyframes clueFloat{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-7px);
+    }
+}
+
+.clue:hover{
+    transform:translateY(-10px) scale(1.015);
+    border-color:rgba(232,185,78,.45);
+    box-shadow:0 16px 35px rgba(0,0,0,.20);
+}
+
+.clue.open{
+    animation:none;
+    transform:translateY(-12px) scale(1.025);
+    border-color:var(--gold);
+    background:var(--glass);
+    box-shadow:0 22px 45px rgba(0,0,0,.28);
+    z-index:5;
+}
+
+.clue p{
+    color:var(--muted);
+    line-height:1.55;
+    font-size:14px;
+    margin-top:12px;
+}
+
+.clue-hint{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    margin-top:14px;
+    padding:7px 10px;
+    border-radius:999px;
+    background:rgba(232,185,78,.10);
+    border:1px solid rgba(232,185,78,.20);
+    color:var(--gold);
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:.4px;
+}
+
+.clue-details{
+    display:grid;
+    grid-template-rows:0fr;
+    opacity:0;
+    margin-top:0;
+    transition:
+        grid-template-rows .35s ease,
+        opacity .25s ease,
+        margin-top .35s ease;
+}
+
+.clue-details-inner{
+    min-height:0;
+    overflow:hidden;
+}
+
+.clue.open .clue-details{
+    grid-template-rows:1fr;
+    opacity:1;
+    margin-top:10px;
+}
+
+.clue.open .clue-hint{
+    background:rgba(73,217,130,.10);
+    border-color:rgba(73,217,130,.25);
+}
+
+.clue-arrow{
+    position:absolute;
+    right:18px;
+    top:18px;
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    background:var(--glass2);
+    border:1px solid var(--border);
+    transition:transform .3s ease;
+    color:var(--gold);
+    font-size:13px;
+}
+
+.clue.open .clue-arrow{
+    transform:rotate(180deg);
+}
+
+.clue-number{
+    font-size:11px;
+    font-weight:900;
+    color:var(--gold);
+    letter-spacing:1px;
+}
+
+.clue h3{
+    margin:8px 0;
+}
+
+/* QUIZ */
+
+.quiz-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.progress-wrap{
+    flex:1;
+}
+
+.progress-text{
+    font-size:13px;
+    color:var(--muted);
+    margin-bottom:8px;
+}
+
+.progress{
+    width:100%;
+    height:8px;
+    background:var(--glass2);
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress-bar{
+    height:100%;
+    width:0;
+    background:linear-gradient(90deg,var(--blue),var(--gold));
+    border-radius:20px;
+    transition:width .3s ease;
+}
+
+.score-box{
+    padding:10px 15px;
+    border-radius:13px;
+    background:var(--glass2);
+    border:1px solid var(--border);
+    font-weight:900;
+    color:var(--gold);
+    white-space:nowrap;
+}
+
+.question-number{
+    color:var(--gold);
+    font-size:13px;
+    font-weight:900;
+    letter-spacing:1px;
+    margin-bottom:10px;
+}
+
+.question{
+    font-size:clamp(21px,4vw,30px);
+    line-height:1.35;
+    margin-bottom:25px;
+}
+
+.choices{
+    display:grid;
+    gap:12px;
+}
+
+.choice{
+    width:100%;
+    padding:17px;
+    border-radius:16px;
+    border:1px solid var(--border);
+    background:var(--glass2);
+    color:var(--text);
+    text-align:left;
+    cursor:pointer;
+    font-size:15px;
+    line-height:1.45;
+    transition:.2s;
+}
+
+.choice:hover{
+    transform:translateX(5px);
+    border-color:var(--gold);
+    background:rgba(232,185,78,.08);
+}
+
+.choice.correct{
+    border-color:var(--green);
+    background:rgba(73,217,130,.14);
+}
+
+.choice.wrong{
+    border-color:var(--red);
+    background:rgba(255,101,118,.14);
+}
+
+.choice.disabled{
+    pointer-events:none;
+}
+
+.quiz-bottom{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:25px;
+    gap:15px;
+}
+
+.feedback{
+    min-height:25px;
+    font-weight:900;
+    line-height:1.5;
+}
+
+.feedback .explanation{
+    margin-top:10px;
+    font-size:14px;
+    font-weight:normal;
+    line-height:1.65;
+    color:var(--muted);
+}
+
+.next-question-btn{
+    display:none;
+    margin-left:auto;
+    white-space:nowrap;
+}
+
+.feedback.correct{
+    color:var(--green);
+}
+
+.feedback.wrong{
+    color:var(--red);
+}
+
+/* RESULT */
+
+.result-card{
+    text-align:center;
+}
+
+.result-icon{
+    font-size:70px;
+    margin-bottom:15px;
+}
+
+.result-card h2{
+    font-size:clamp(30px,6vw,48px);
+    margin-bottom:10px;
+}
+
+.result-score{
+    font-size:50px;
+    color:var(--gold);
+    font-weight:900;
+    margin:20px 0;
+}
+
+.result-message{
+    color:var(--muted);
+    line-height:1.7;
+    max-width:650px;
+    margin:0 auto 25px;
+}
+
+.result-actions{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:10px;
+}
+
+/* SCOREBOARD */
+
+.scoreboard{
+    margin-top:30px;
+}
+
+.scoreboard h3{
+    text-align:center;
+    margin-bottom:15px;
+    color:var(--gold);
+}
+
+.table-wrap{
+    overflow-x:auto;
+    border:1px solid var(--border);
+    border-radius:16px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:600px;
+}
+
+th,
+td{
+    padding:13px 12px;
+    border-bottom:1px solid var(--border);
+    text-align:center;
+    font-size:13px;
+}
+
+th{
+    color:var(--gold);
+    background:var(--glass2);
+}
+
+td{
+    color:var(--muted);
+}
+
+.status-pass{
+    color:var(--green);
+    font-weight:900;
+}
+
+.status-review{
+    color:var(--red);
+    font-weight:900;
+}
+
+/* CONFETTI */
+
+.confetti{
+    position:fixed;
+    top:-15px;
+    width:8px;
+    height:13px;
+    z-index:9999;
+    pointer-events:none;
+    animation:fall linear forwards;
+}
+
+@keyframes fall{
+    0%{
+        transform:translateY(0) rotate(0deg);
+        opacity:1;
+    }
+    100%{
+        transform:translateY(105vh) rotate(720deg);
+        opacity:0;
+    }
+}
+
+/* FOOTER */
+
+footer{
+    text-align:center;
+    color:var(--muted);
+    font-size:12px;
+    padding:20px;
+    opacity:.8;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:760px){
+
+    .navbar{
+        width:94%;
+        padding:13px 14px;
+    }
+
+    .logo{
+        font-size:14px;
+    }
+
+    .nav-btn{
+        padding:8px 10px;
+        font-size:11px;
+    }
+
+    main{
+        width:94%;
+        margin-top:25px;
+    }
+
+    .card{
+        padding:23px 17px;
+        border-radius:22px;
+    }
+
+    .mission-grid{
+        grid-template-columns:1fr;
+    }
+
+    .clue-grid{
+        grid-template-columns:1fr;
+    }
+
+    .clue{
+        min-height:150px;
+    }
+
+    .quiz-top{
+        flex-direction:column;
+        align-items:stretch;
+    }
+
+    .score-box{
+        text-align:center;
+    }
+
+    .quiz-bottom{
+        flex-direction:column;
+        align-items:stretch;
+    }
+
+    .quiz-bottom button{
+        width:100%;
+    }
+
+    .result-actions{
+        flex-direction:column;
+    }
+
+    .result-actions button{
+        width:100%;
+    }
+}
+
+@media(max-width:430px){
+
+    .hero h1{
+        font-size:34px;
+    }
+
+    .detective-icon{
+        width:85px;
+        height:85px;
+        font-size:42px;
+    }
+
+    .primary-btn,
+    .secondary-btn{
+        width:100%;
+    }
+
+    .question{
+        font-size:21px;
+    }
+
+    .choice{
+        font-size:14px;
+        padding:15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg-orb orb1"></div>
+<div class="bg-orb orb2"></div>
+<div class="bg-orb orb3"></div>
+
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        🕵️ RIZAL DETECTIVE KIT
+    </div>
+
+    <div class="nav-actions">
+
+        <button
+            class="nav-btn"
+            id="themeBtn"
+            onclick="toggleTheme()">
+            ☀️ LIGHT
+        </button>
+
+    </div>
+
+</nav>
+
+
+<main>
+
+
+<!-- START SCREEN -->
+
+<section
+    id="startScreen"
+    class="screen active">
+
+    <div class="card hero">
+
+        <div class="detective-icon">
+            🕵️
+        </div>
+
+        <div class="badge">
+            EDUCATIONAL DETECTIVE TOOLKIT
+        </div>
+
+        <h1>
+            RIZAL
+            <span>DETECTIVE KIT</span>
+        </h1>
+
+        <p>
+            Tuklasin ang mahahalagang ideya tungkol sa
+            mga akda, tauhan, pangyayari, at kaisipan
+            na may kaugnayan kay Dr. Jose Rizal.
+        </p>
+
+        <div class="input-group">
+
+            <label for="studentName">
+                Detective Name
+            </label>
+
+            <input
+                id="studentName"
+                type="text"
+                maxlength="40"
+                placeholder="Ilagay ang iyong pangalan">
+
+        </div>
+
+        <button
+            class="primary-btn"
+            onclick="startMission()">
+
+            🔎 SIMULAN ANG IMBESTIGASYON
+
+        </button>
+
+
+        <div class="disclaimer">
+
+            <div class="disclaimer-title">
+                ⚠️ PAALALA
+            </div>
+
+            <p>
+                Ang Detective Kit na ito ay isang learning toolkit lamang na idinisenyo upang masuri at mapalawak ang inyong pangkalahatang kaalaman tungkol sa mga akda at kaisipan ni Rizal. Layunin nito na magsilbing gabay at pantulong sa pagkatuto, ngunit hindi nito ganap na nasasaklaw ang lahat ng impormasyong kailangan upang lubos na maunawaan ang mga paksa. Ang mga gawain at pagsusulit na nakapaloob dito ay para lamang sa pagtataya ng inyong general knowledge.
+
+Mas mahalaga pa rin ang aktibong pakikinig sa talakayan ng guro, maingat na pagbabasa ng buong akda o kuwento, at pagsasagawa ng sariling pananaliksik gamit ang mapagkakatiwalaan at beripikadong sanggunian. Ang Detective Kit ay hindi pamalit sa mga ito, kundi karagdagang kasangkapan lamang upang mapalalim ang inyong pag-unawa at pagkatuto.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- MISSION SCREEN -->
+
+<section
+    id="visionScreen"
+    class="screen">
+
+    <div class="card">
+
+        <div class="section-title">
+
+            <div class="small">
+                CASE FILE 01
+            </div>
+
+            <h2>
+                Ang Iyong Misyon
+            </h2>
+
+            <p>
+                Tapikin ang bawat file upang iangat ito.
+            </p>
+
+        </div>
+
+
+        <div class="mission-grid">
+
+            <div
+                class="mission"
+                tabindex="0"
+                role="button"
+                aria-pressed="false"
+                onclick="toggleMission(this)">
+
+                <div class="icon">
+                    🔍
+                </div>
+
+                <h3>
+                    MAG-IMBESTIGA
+                </h3>
+
+                <p>
+                    Suriin ang mga clue tungkol sa
+                    mga tauhan, pangyayari, at ideya.
+                </p>
+
+            </div>
+
+
+            <div
+                class="mission"
+                tabindex="0"
+                role="button"
+                aria-pressed="false"
+                onclick="toggleMission(this)">
+
+                <div class="icon">
+                    📖
+                </div>
+
+                <h3>
+                    MAGBASA
+                </h3>
+
+                <p>
+                    Unawain ang mga akda at ang
+                    kontekstong pinagmulan ng mga ito.
+                </p>
+
+            </div>
+
+
+            <div
+                class="mission"
+                tabindex="0"
+                role="button"
+                aria-pressed="false"
+                onclick="toggleMission(this)">
+
+                <div class="icon">
+                    🧠
+                </div>
+
+                <h3>
+                    MAG-ANALISA
+                </h3>
+
+                <p>
+                    Bumuo ng sariling pag-unawa batay
+                    sa ebidensya at mapagkakatiwalaang sources.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div style="text-align:center;margin-top:25px;">
+
+            <button
+                class="primary-btn"
+                onclick="showClues()">
+
+                🔓 BUKSAN ANG MGA CLUE
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CLUES SCREEN -->
+
+<section
+    id="clueScreen"
+    class="screen">
+
+    <div class="card">
+
+        <div class="section-title">
+
+            <div class="small">
+                CASE FILE 02
+            </div>
+
+            <h2>
+                Mga Nakalap na Clue
+            </h2>
+
+            <p>
+                Tapikin ang isang clue para buksan
+                at basahin ang impormasyon.
+            </p>
+
+        </div>
+
+
+        <div class="clue-grid">
+
+            <div
+                class="clue"
+                tabindex="0"
+                role="button"
+                aria-expanded="false"
+                onclick="toggleClue(this)">
+
+                <div class="clue-arrow">↓</div>
+
+                <div class="clue-number">
+                    CLUE 01
+                </div>
+
+                <h3>
+                    Noli Me Tangere
+                </h3>
+
+                <p>
+                    Isang mahalagang nobela ni Rizal.
+                </p>
+
+                <div class="clue-details">
+                    <div class="clue-details-inner">
+                        <p>
+                            Inilalarawan nito ang ilang
+                            suliraning panlipunan at
+                            karanasan ng mga tauhan
+                            sa panahon ng kolonyal na
+                            Pilipinas.
+                        </p>
+                    </div>
+                </div>
+
+                <span class="clue-hint">
+                    👆 TAP TO OPEN
+                </span>
+
+            </div>
+
+
+            <div
+                class="clue"
+                tabindex="0"
+                role="button"
+                aria-expanded="false"
+                onclick="toggleClue(this)">
+
+                <div class="clue-arrow">↓</div>
+
+                <div class="clue-number">
+                    CLUE 02
+                </div>
+
+                <h3>
+                    El Filibusterismo
+                </h3>
+
+                <p>
+                    Ikalawang nobela na kaugnay
+                    ng Noli Me Tangere.
+                </p>
+
+                <div class="clue-details">
+                    <div class="clue-details-inner">
+                        <p>
+                            Mas madilim at mas radikal
+                            ang ilang pananaw sa nobelang
+                            ito, lalo na sa karakter ni
+                            Simoun at sa kaniyang
+                            paghahangad ng pagbabago.
+                        </p>
+                    </div>
+                </div>
+
+                <span class="clue-hint">
+                    👆 TAP TO OPEN
+                </span>
+
+            </div>
+
+
+            <div
+                class="clue"
+                tabindex="0"
+                role="button"
+                aria-expanded="false"
+                onclick="toggleClue(this)">
+
+                <div class="clue-arrow">↓</div>
+
+                <div class="clue-number">
+                    CLUE 03
+                </div>
+
+                <h3>
+                    Crisostomo Ibarra
+                </h3>
+
+                <p>
+                    Isang pangunahing tauhan sa
+                    Noli Me Tangere.
+                </p>
+
+                <div class="clue-details">
+                    <div class="clue-details-inner">
+                        <p>
+                            Si Ibarra ay may mga ideya
+                            tungkol sa edukasyon at
+                            mapayapang pagbabago para
+                            sa kaniyang bayan.
+                        </p>
+                    </div>
+                </div>
+
+                <span class="clue-hint">
+                    👆 TAP TO OPEN
+                </span>
+
+            </div>
+
+
+            <div
+                class="clue"
+                tabindex="0"
+                role="button"
+                aria-expanded="false"
+                onclick="toggleClue(this)">
+
+                <div class="clue-arrow">↓</div>
+
+                <div class="clue-number">
+                    CLUE 04
+                </div>
+
+                <h3>
+                    Simoun
+                </h3>
+
+                <p>
+                    Ang pagkakakilanlang ginamit ni
+                    Ibarra sa El Filibusterismo.
+                </p>
+
+                <div class="clue-details">
+                    <div class="clue-details-inner">
+                        <p>
+                            Bilang Simoun, nagbago ang
+                            kaniyang paraan ng pagtingin
+                            at pagkilos tungo sa mas
+                            radikal na pamamaraan.
+                        </p>
+                    </div>
+                </div>
+
+                <span class="clue-hint">
+                    👆 TAP TO OPEN
+                </span>
+
+            </div>
+
+
+            <div
+                class="clue"
+                tabindex="0"
+                role="button"
+                aria-expanded="false"
+                onclick="toggleClue(this)">
+
+                <div class="clue-arrow">↓</div>
+
+                <div class="clue-number">
+                    CLUE 05
+                </div>
+
+                <h3>
+                    Basilio
+                </h3>
+
+                <p>
+                    Isang tauhang lumitaw sa
+                    parehong nobela.
+                </p>
+
+                <div class="clue-details">
+                    <div class="clue-details-inner">
+                        <p>
+                            Ang kaniyang mga karanasan
+                            ay nagpapakita kung paano
+                            maaaring maapektuhan ng mga
+                            suliraning panlipunan ang buhay
+                            ng isang tao.
+                        </p>
+                    </div>
+                </div>
+
+                <span class="clue-hint">
+                    👆 TAP TO OPEN
+                </span>
+
+            </div>
+
+
+            <div
+                class="clue"
+                tabindex="0"
+                role="button"
+                aria-expanded="false"
+                onclick="toggleClue(this)">
+
+                <div class="clue-arrow">↓</div>
+
+                <div class="clue-number">
+                    CLUE 06
+                </div>
+
+                <h3>
+                    Edukasyon
+                </h3>
+
+                <p>
+                    Isang mahalagang ideya sa
+                    mga akda ni Rizal.
+                </p>
+
+                <div class="clue-details">
+                    <div class="clue-details-inner">
+                        <p>
+                            Makikita sa mga akda ang
+                            kahalagahan ng kaalaman at
+                            hangaring mapabuti ang kalagayan
+                            ng lipunan.
+                        </p>
+                    </div>
+                </div>
+
+                <span class="clue-hint">
+                    👆 TAP TO OPEN
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div
+            style="
+                text-align:center;
+                margin-top:28px;
+                display:flex;
+                justify-content:center;
+                gap:10px;
+                flex-wrap:wrap;
+            ">
+
+            <button
+                class="secondary-btn"
+                onclick="showScreen('visionScreen')">
+
+                ← BALIK
+
+            </button>
+
+            <button
+                class="primary-btn"
+                onclick="startGame()">
+
+                🕵️ SIMULAN ANG QUIZ
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- QUIZ SCREEN -->
+
+<section
+    id="quizScreen"
+    class="screen">
+
+    <div class="card">
+
+        <div class="quiz-top">
+
+            <div class="progress-wrap">
+
+                <div
+                    class="progress-text"
+                    id="progressText">
+                    Question 1 of 15
+                </div>
+
+                <div class="progress">
+
+                    <div
+                        class="progress-bar"
+                        id="progressBar">
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="score-box">
+                SCORE:
+                <span id="scoreDisplay">0</span>
+            </div>
+
+        </div>
+
+
+        <div
+            class="question-number"
+            id="questionNumber">
+            QUESTION 01
+        </div>
+
+
+        <div
+            class="question"
+            id="questionText">
+        </div>
+
+
+        <div
+            class="choices"
+            id="choicesContainer">
+        </div>
+
+
+        <div class="quiz-bottom">
+
+            <div
+                class="feedback"
+                id="feedback">
+            </div>
+
+            <button
+                class="primary-btn next-question-btn"
+                id="nextQuestionBtn"
+                onclick="nextQuestion()"
+                style="display:none;">
+                NEXT QUESTION →
+            </button>
+
+            <button
+                class="secondary-btn"
+                onclick="exitGame()">
+
+                ✕ EXIT GAME
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- RESULT SCREEN -->
+
+<section
+    id="resultScreen"
+    class="screen">
+
+    <div class="card result-card">
+
+        <div class="result-icon">
+            🏆
+        </div>
+
+        <h2>
+            YOU'VE GOT...
+        </h2>
+
+        <div
+            class="result-score"
+            id="finalScore">
+            0/15
+        </div>
+
+        <p
+            class="result-message"
+            id="resultMessage">
+        </p>
+
+
+        <div class="result-actions">
+
+            <button
+                class="primary-btn"
+                onclick="playAgain()">
+
+                🔄 PLAY AGAIN
+
+            </button>
+
+            <button
+                class="secondary-btn"
+                onclick="backToStart()">
+
+                🏠 BACK TO HOME
+
+            </button>
+
+        </div>
+
+
+        <div class="scoreboard">
+
+            <h3>
+                🕵️ DETECTIVE SCOREBOARD
+            </h3>
+
+            <div class="table-wrap">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Rank</th>
+                            <th>Name</th>
+                            <th>Score</th>
+                            <th>Percent</th>
+                            <th>Status</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="scoreboardBody">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <button
+                class="secondary-btn"
+                onclick="clearScoreboard()"
+                style="margin-top:15px;">
+
+                🗑 CLEAR SCOREBOARD
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<footer>
+    Rizal Detective Kit • Educational Learning Tool
+</footer>
+
+
+<script>
+
+/* =========================================================
+   15 NEW QUESTIONS
+   EXACT QUESTIONS / CHOICES PROVIDED BY USER
+========================================================= */
+
+const questions = [
+
+    {
+        question:
+        "Ano ang pangunahing dahilan kung bakit tinulungan ni Elias si Ibarra na makatakas kahit magkaiba sila ng pananaw?",
+        choices:[
+            "Naniniwala siyang si Ibarra ang susunod na pinuno ng bayan",
+            "Nakita niya kay Ibarra ang posibilidad ng pagbabago para sa bansa",
+            "May utang na loob siya sa pamilya ni Ibarra"
+        ],
+        answer:1,
+        explanation:
+        "Tamang sagot: B. Tinulungan ni Elias si Ibarra dahil nakita niya rito ang posibilidad ng pagbabago at pag-unlad para sa bayan. Bagama't magkaiba sila ng pananaw, kapwa nila nais ang mas mabuting kalagayan ng lipunan."
+    },
+
+    {
+        question:
+        "Bakit tumanggi si Basilio noong una na sumama sa plano ni Simoun?",
+        choices:[
+            "Ayaw niyang masangkot sa politika habang nag-aaral",
+            "Naniniwala siyang may mas epektibong paraan upang makamit ang pagbabago",
+            "Hindi niya alam ang tunay na pagkakakilanlan ni Simoun"
+        ],
+        answer:1,
+        explanation:
+        "Tamang sagot: B. Noong una, hindi agad sinuportahan ni Basilio ang marahas na plano ni Simoun. Mas nakatuon siya sa kaniyang pag-aaral, propesyon, at paniniwalang maaaring makamit ang pag-unlad sa ibang paraan."
+    },
+
+    {
+        question:
+        "Ano ang ipinahihiwatig ng pagkakakulong ni Maria Clara sa kumbento?",
+        choices:[
+            "Ang pagtatakwil niya sa pag-ibig",
+            "Ang pagkawala ng kanyang personal na kalayaan",
+            "Ang kanyang pasya na maglingkod sa simbahan"
+        ],
+        answer:1,
+        explanation:
+        "Tamang sagot: B. Ang pagpasok ni Maria Clara sa kumbento ay nagpapakita ng pagkawala ng kaniyang personal na kalayaan. Ang kaniyang kalagayan ay bunga ng mga pangyayaring naglimita sa kaniyang mga pagpipilian at buhay."
+    },
+
+    {
+        question:
+        "Bakit itinuring ng marami na baliw si Pilosopo Tasyo?",
+        choices:[
+            "Dahil salungat ang kanyang mga pananaw sa nakararami",
+            "Dahil lagi siyang mag-isang nagsasalita",
+            "Dahil mahilig siyang magsulat ng mga hula"
+        ],
+        answer:0,
+        explanation:
+        "Tamang sagot: A. Itinuring na baliw si Pilosopo Tasyo dahil hindi pangkaraniwan at madalas salungat sa nakasanayang pananaw ang kaniyang mga ideya. Sa kabila nito, makikita sa kaniyang karakter ang malalim na pag-iisip at kritikal na pagtingin sa lipunan."
+    },
+
+    {
+        question:
+        "Ano ang mas malalim na simbolismo ng katauhan ni Kabesang Tales?",
+        choices:[
+            "Karaniwang magsasakang naghahangad ng yaman",
+            "Mamamayang nawalan ng tiwala sa sistema dahil sa pang-aapi",
+            "Taong nabigong maging pinuno ng kanilang lugar"
+        ],
+        answer:1,
+        explanation:
+        "Tamang sagot: B. Kinakatawan ni Kabesang Tales ang mamamayang nakaranas ng matinding pang-aagaw sa kaniyang karapatan at lupa. Ang sunod-sunod na kawalan ng katarungan sa kaniya ay nagpapakita kung paano maaaring masira ang tiwala ng isang tao sa mapang-abusong sistema."
+    },
+
+    {
+        question:
+        "Bakit mahalaga ang pagkikita nina Simoun at Padre Florentino sa dulo ng El Filibusterismo?",
+        choices:[
+            "Doon natuklasan ang lihim na kayamanan",
+            "Doon nabigyang-linaw ang magkaibang pananaw tungkol sa pagbabago",
+            "Doon ipinasa ni Simoun ang kanyang mga plano"
+        ],
+        answer:1,
+        explanation:
+        "Tamang sagot: B. Sa kanilang pagkikita, malinaw na nagtagpo ang magkaibang pananaw tungkol sa pagbabago. Si Simoun ay gumamit ng paghihiganti at marahas na pamamaraan, samantalang hindi ito tinanggap ni Padre Florentino bilang daan sa tunay na kalayaan."
+    },
+
+    {
+        question:
+        "Ano ang ipinakikita ng pagbabago ni Ibarra bilang Simoun?",
+        choices:[
+            "Ang epekto ng paglayo sa sariling bayan",
+            "Ang bunga ng sunod-sunod na pagkabigo at kawalan ng katarungan",
+            "Ang impluwensiya ng mayayamang negosyante"
+        ],
+        answer:1,
+        explanation:
+        "Tamang sagot: B. Ang pagbabago ni Ibarra bilang Simoun ay bunga ng mga karanasan niyang pagkabigo, pag-uusig, at kawalan ng katarungan. Dahil dito, nawala ang dati niyang tiwala sa mapayapang reporma at pinili niya ang mas radikal na paraan."
+    },
+
+    {
+        question:
+        "Bakit nabigo ang pagtatatag ng Akademya ng Wikang Kastila?",
+        choices:[
+            "Dahil sa kakulangan ng suporta mula sa mga estudyante",
+            "Dahil ginamit lamang ito upang palabasing may aksiyon ang pamahalaan",
+            "Dahil sa pagsalungat ng mga may kapangyarihan sa tunay na pagbabago"
+        ],
+        answer:2,
+        explanation:
+        "Tamang sagot: C. Ang pagtatatag ng Akademya ng Wikang Kastila ay nahadlangan dahil sa pagtutol at pakikialam ng mga makapangyarihang awtoridad. Ipinakita nito ang mga hadlang na kinakaharap ng mga estudyanteng humihingi ng makabuluhang reporma."
+    },
+
+    {
+        question:
+        "Ano ang ipinahihiwatig ng karakter ni Don Custodio sa El Filibusterismo?",
+        choices:[
+            "Ang lider na may matibay na paninindigan",
+            "Ang opisyal na mas inuuna ang reputasyon kaysa tamang desisyon",
+            "Ang taong walang pakialam sa opinyon ng iba"
+        ],
+        answer:1,
+        explanation:
+        "Tamang sagot: B. Ipinapakita ni Don Custodio ang uri ng opisyal na higit na nag-aalala sa kaniyang posisyon, reputasyon, at pagpapakitang marunong kaysa sa paggawa ng makabuluhan at makatarungang desisyon."
+    },
+
+    {
+        question:
+        "Bakit piniling iligtas ni Isagani ang mga tao sa piging kahit maaari nitong masira ang plano ni Simoun?",
+        choices:[
+            "Dahil natakot siyang madamay",
+            "Dahil mas pinahalagahan niya ang buhay ng tao kaysa paghihiganti",
+            "Dahil nais niyang mapansin ni Paulita"
+        ],
+        answer:1,
+        explanation:
+        "Tamang sagot: B. Pinili ni Isagani na iligtas ang mga taong nasa piging dahil hindi niya kayang hayaang mapahamak ang mga inosenteng buhay. Mas pinahalagahan niya ang buhay ng tao kaysa sa planong paghihiganti ni Simoun."
+    },
+
+    {
+        question:
+        "Ano ang karaniwang katangian nina Elias at Simoun?",
+        choices:[
+            "Pareho silang prayle na kumakalaban sa sistema",
+            "Pareho nilang ninais ang pagbabago ng lipunan ngunit magkaiba ang paraan",
+            "Pareho silang nagmula sa mayamang pamilya"
+        ],
+        answer:1,
+        explanation:
+        "Tamang sagot: B. Parehong nagnanais sina Elias at Simoun ng pagbabago sa lipunan, ngunit magkaiba ang kanilang pamamaraan. Si Elias ay tumulong at naghangad ng pagbabago nang hindi nakabatay sa paghihiganti, samantalang si Simoun ay gumamit ng radikal at marahas na paraan."
+    },
+
+    {
+        question:
+        "Ano ang simbolikong kahulugan ng ilog na madalas banggitin sa Noli?",
+        choices:[
+            "Hangganan ng iba't ibang lalawigan",
+            "Takbo ng buhay at kalagayan ng lipunan",
+            "Ruta ng kalakalan noong panahong iyon"
+        ],
+        answer:1,
+        explanation:
+        "Tamang sagot: B. Maaaring makita ang ilog bilang simbolo ng pagdaloy at pagbabago ng buhay at kalagayan ng lipunan. Mahalaga rin ang ilog sa ilang pangunahing pangyayari sa Noli Me Tangere, lalo na sa mga karanasan ni Elias at Ibarra."
+    },
+
+    {
+        question:
+        "Bakit hindi sumang-ayon si Padre Florentino sa mga pamamaraan ni Simoun?",
+        choices:[
+            "Dahil naniniwala siyang hindi maitatag ang tunay na kalayaan sa pamamagitan ng paghihiganti at dahas",
+            "Dahil kaibigan niya ang mga prayle",
+            "Dahil wala siyang pakialam sa mga suliranin ng bayan"
+        ],
+        answer:0,
+        explanation:
+        "Tamang sagot: A. Hindi sinang-ayunan ni Padre Florentino ang paghihiganti at karahasan ni Simoun dahil hindi niya ito nakikitang daan sa tunay at makatarungang kalayaan. Sa kanilang pag-uusap, malinaw ang pagtutol niya sa paggamit ng masamang paraan para sa isang mabuting layunin."
+    },
+
+    {
+        question:
+        "Ano ang ipinahihiwatig ng pagkamatay ni Elias sa pagtatapos ng Noli Me Tangere?",
+        choices:[
+            "Pagkabigo ng lahat ng pag-asa para sa bayan",
+            "Pagsasakripisyo para sa kinabukasan ng susunod na salinlahi",
+            "Katapusan ng laban para sa pagbabago"
+        ],
+        answer:1,
+        explanation:
+        "Tamang sagot: B. Ang sakripisyo ni Elias ay nagpapakita ng kaniyang pagnanais para sa mas mabuting kinabukasan ng bayan. Bagama't hindi niya nakita ang pagbabagong kaniyang inaasam, ang kaniyang huling mga salita ay nakatuon sa kinabukasan ng Pilipinas at ng mga susunod na salinlahi."
+    },
+
+    {
+        question:
+        "Kung paghahambingin ang Noli at El Fili, ano ang pinakamalaking pagbabago sa pananaw na ipinakita ni Rizal?",
+        choices:[
+            "Mula sa paghimok ng reporma tungo sa pagpapakita ng mga bunga ng pagkabigo nito",
+            "Mula sa pagsuporta sa kolonyal na pamahalaan tungo sa pagtutol dito",
+            "Mula sa pagtalakay sa edukasyon tungo sa pagtalakay sa relihiyon"
+        ],
+        answer:0,
+        explanation:
+        "Tamang sagot: A. Sa Noli Me Tangere, malaki ang diin sa mga suliranin ng lipunan at sa pag-asa sa reporma at edukasyon. Sa El Filibusterismo, mas madilim ang paglalarawan sa lipunan at ipinakita ang mga bunga ng patuloy na pang-aapi, pagkabigo ng reporma, at kawalan ng katarungan."
+    }
+
+];
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+let currentQuestion = 0;
+let score = 0;
+let studentName = "";
+let answerLocked = false;
+
+
+/* =========================================================
+   SCREEN NAVIGATION
+========================================================= */
+
+function showScreen(id){
+
+    document
+        .querySelectorAll(".screen")
+        .forEach(screen=>{
+            screen.classList.remove("active");
+        });
+
+    const target =
+        document.getElementById(id);
+
+    if(target){
+        target.classList.add("active");
+    }
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+
+/* =========================================================
+   START MISSION
+========================================================= */
+
+function startMission(){
+
+    const nameInput =
+        document.getElementById("studentName");
+
+    const name =
+        nameInput.value.trim();
+
+    if(!name){
+
+        nameInput.focus();
+
+        nameInput.style.borderColor =
+            "var(--red)";
+
+        setTimeout(()=>{
+            nameInput.style.borderColor =
+                "";
+        },1000);
+
+        return;
+    }
+
+    studentName = name;
+
+    showScreen("visionScreen");
+}
+
+
+/* =========================================================
+   MISSION
+========================================================= */
+
+function toggleMission(mission){
+
+    const wasSelected =
+        mission.classList.contains("selected");
+
+    document
+        .querySelectorAll(".mission.selected")
+        .forEach(item=>{
+
+            item.classList.remove("selected");
+
+            item.setAttribute(
+                "aria-pressed",
+                "false"
+            );
+
+        });
+
+    if(!wasSelected){
+
+        mission.classList.add("selected");
+
+        mission.setAttribute(
+            "aria-pressed",
+            "true"
+        );
+
+    }
+}
+
+
+document
+    .querySelectorAll(".mission")
+    .forEach(mission=>{
+
+        mission.addEventListener(
+            "keydown",
+            event=>{
+
+                if(
+                    event.key === "Enter" ||
+                    event.key === " "
+                ){
+
+                    event.preventDefault();
+
+                    toggleMission(mission);
+
+                }
+
+            }
+        );
+
+    });
+
+
+/* =========================================================
+   CLUES
+========================================================= */
+
+function showClues(){
+
+    showScreen("clueScreen");
+
+}
+
+
+function toggleClue(clue){
+
+    const wasOpen =
+        clue.classList.contains("open");
+
+    document
+        .querySelectorAll(".clue.open")
+        .forEach(item=>{
+
+            item.classList.remove("open");
+
+            item.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+        });
+
+    if(!wasOpen){
+
+        clue.classList.add("open");
+
+        clue.setAttribute(
+            "aria-expanded",
+            "true"
+        );
+
+    }
+
+}
+
+
+document
+    .querySelectorAll(".clue")
+    .forEach(clue=>{
+
+        clue.addEventListener(
+            "keydown",
+            event=>{
+
+                if(
+                    event.key === "Enter" ||
+                    event.key === " "
+                ){
+
+                    event.preventDefault();
+
+                    toggleClue(clue);
+
+                }
+
+            }
+        );
+
+    });
+
+
+/* =========================================================
+   START QUIZ
+========================================================= */
+
+function startGame(){
+
+    currentQuestion = 0;
+    score = 0;
+    answerLocked = false;
+
+    document.getElementById(
+        "scoreDisplay"
+    ).textContent = "0";
+
+    showScreen("quizScreen");
+
+    renderQuestion();
+}
+
+
+/* =========================================================
+   RENDER QUESTION
+========================================================= */
+
+function renderQuestion(){
+
+    answerLocked = false;
+
+    const item =
+        questions[currentQuestion];
+
+    const questionNumber =
+        currentQuestion + 1;
+
+    document.getElementById(
+        "questionNumber"
+    ).textContent =
+        "QUESTION " +
+        String(questionNumber).padStart(2,"0");
+
+    document.getElementById(
+        "progressText"
+    ).textContent =
+        "Question " +
+        questionNumber +
+        " of " +
+        questions.length;
+
+    document.getElementById(
+        "progressBar"
+    ).style.width =
+        ((questionNumber / questions.length) * 100) + "%";
+
+    document.getElementById(
+        "questionText"
+    ).textContent =
+        item.question;
+
+    document.getElementById(
+        "feedback"
+    ).textContent = "";
+
+    document.getElementById(
+        "feedback"
+    ).className =
+        "feedback";
+
+    document.getElementById(
+        "nextQuestionBtn"
+    ).style.display =
+        "none";
+
+    document.getElementById(
+        "nextQuestionBtn"
+    ).textContent =
+        "NEXT QUESTION →";
+
+    const container =
+        document.getElementById(
+            "choicesContainer"
+        );
+
+    container.innerHTML = "";
+
+
+    item.choices.forEach(
+        (choice,index)=>{
+
+            const button =
+                document.createElement("button");
+
+            button.className =
+                "choice";
+
+            button.textContent =
+                String.fromCharCode(65 + index) +
+                ". " +
+                choice;
+
+            button.addEventListener(
+                "click",
+                ()=>{
+                    selectAnswer(
+                        index,
+                        button
+                    );
+                }
+            );
+
+            container.appendChild(button);
+
+        }
+    );
+}
+
+
+/* =========================================================
+   ANSWER
+========================================================= */
+
+function selectAnswer(
+    selectedIndex,
+    selectedButton
+){
+
+    if(answerLocked) return;
+
+    answerLocked = true;
+
+    const item =
+        questions[currentQuestion];
+
+    const choiceButtons =
+        document.querySelectorAll(".choice");
+
+    choiceButtons.forEach(button=>{
+        button.classList.add("disabled");
+    });
+
+    const feedback =
+        document.getElementById("feedback");
+
+    if(selectedIndex === item.answer){
+
+        score++;
+
+        selectedButton.classList.add(
+            "correct"
+        );
+
+        feedback.innerHTML =
+            "✓ TAMANG SAGOT!" +
+            '<div class="explanation">' +
+            item.explanation +
+            "</div>";
+
+        feedback.className =
+            "feedback correct";
+
+        document.getElementById(
+            "scoreDisplay"
+        ).textContent =
+            score;
+
+        playCorrectSound();
+        simpleConfetti();
+
+    }else{
+
+        selectedButton.classList.add(
+            "wrong"
+        );
+
+        choiceButtons[
+            item.answer
+        ].classList.add(
+            "correct"
+        );
+
+        feedback.innerHTML =
+            "✕ MALI. Ang tamang sagot ay naka-highlight." +
+            '<div class="explanation">' +
+            item.explanation +
+            "</div>";
+
+        feedback.className =
+            "feedback wrong";
+
+        playWrongSound();
+
+    }
+
+    const nextButton =
+        document.getElementById("nextQuestionBtn");
+
+    nextButton.style.display = "block";
+
+    if(currentQuestion === questions.length - 1){
+        nextButton.textContent =
+            "SEE RESULTS →";
+    }else{
+        nextButton.textContent =
+            "NEXT QUESTION →";
+    }
+
+}
+
+
+/* =========================================================
+   NEXT QUESTION
+========================================================= */
+
+function nextQuestion(){
+
+    if(!answerLocked) return;
+
+    currentQuestion++;
+
+    if(currentQuestion < questions.length){
+
+        renderQuestion();
+
+    }else{
+
+        finishGame();
+
+    }
+
+}
+
+
+/* =========================================================
+   EXIT
+========================================================= */
+
+function exitGame(){
+
+    const leave =
+        confirm(
+            "Sigurado ka bang gusto mong lumabas sa quiz?"
+        );
+
+    if(!leave) return;
+
+    currentQuestion = 0;
+    score = 0;
+    answerLocked = false;
+
+    showScreen("startScreen");
+}
+
+
+/* =========================================================
+   FINISH
+========================================================= */
+
+function finishGame(){
+
+    const percentage =
+        Math.round(
+            (score / questions.length) * 100
+        );
+
+
+    document.getElementById(
+        "finalScore"
+    ).textContent =
+        score +
+        "/" +
+        questions.length;
+
+
+    let message;
+
+
+    if(percentage >= 90){
+
+        message =
+            "Napakahusay, Detective! Malinaw na mahusay mong nasuri ang mga tanong tungkol sa Noli Me Tangere at El Filibusterismo.";
+
+    }
+
+    else if(percentage >= 75){
+
+        message =
+            "Mahusay! Maganda ang iyong naging imbestigasyon. Balikan lamang ang ilang konsepto upang mas mapalalim pa ang iyong pag-unawa.";
+
+    }
+
+    else if(percentage >= 50){
+
+        message =
+            "Magandang simula! Balikan ang mga akda, talakayan, at clue upang mas mapalalim ang iyong pag-unawa.";
+
+    }
+
+    else{
+
+        message =
+            "Ipagpatuloy ang iyong imbestigasyon. Makatutulong na muling basahin ang mga akda at balikan ang mga konsepto.";
+
+    }
+
+
+    document.getElementById(
+        "resultMessage"
+    ).textContent =
+        message;
+
+
+    saveScore(
+        studentName,
+        score,
+        percentage
+    );
+
+
+    renderScoreboard();
+
+
+    showScreen(
+        "resultScreen"
+    );
+
+
+    finalConfetti();
+
+}
+
+
+/* =========================================================
+   SAVE SCORE
+========================================================= */
+
+function saveScore(
+    name,
+    score,
+    percentage
+){
+
+    let scores =
+        JSON.parse(
+            localStorage.getItem(
+                "rizalDetectiveScores"
+            ) || "[]"
+        );
+
+
+    scores.push({
+
+        name:name,
+        score:score,
+        percentage:percentage,
+        date:new Date().toLocaleString()
+
+    });
+
+
+    scores.sort((a,b)=>{
+
+        if(b.score !== a.score){
+
+            return b.score - a.score;
+
+        }
+
+        return b.percentage -
+            a.percentage;
+
+    });
+
+
+    localStorage.setItem(
+        "rizalDetectiveScores",
+        JSON.stringify(scores)
+    );
+
+}
+
+
+/* =========================================================
+   SCOREBOARD
+========================================================= */
+
+function renderScoreboard(){
+
+    const body =
+        document.getElementById(
+            "scoreboardBody"
+        );
+
+    body.innerHTML = "";
+
+
+    let scores =
+        JSON.parse(
+            localStorage.getItem(
+                "rizalDetectiveScores"
+            ) || "[]"
+        );
+
+
+    scores.sort((a,b)=>{
+
+        if(b.score !== a.score){
+
+            return b.score - a.score;
+
+        }
+
+        return b.percentage -
+            a.percentage;
+
+    });
+
+
+    if(scores.length === 0){
+
+        body.innerHTML = `
+            <tr>
+                <td colspan="5">
+                    Wala pang rekord.
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+
+    scores.forEach(
+        (item,index)=>{
+
+            const row =
+                document.createElement("tr");
+
+
+            const status =
+                item.percentage >= 75
+                    ? `<span class="status-pass">MAHUSAY</span>`
+                    : `<span class="status-review">REVIEW</span>`;
+
+
+            row.innerHTML = `
+
+                <td>
+                    ${index + 1}
+                </td>
+
+                <td>
+                    ${escapeHTML(item.name)}
+                </td>
+
+                <td>
+                    ${item.score}/15
+                </td>
+
+                <td>
+                    ${item.percentage}%
+                </td>
+
+                <td>
+                    ${status}
+                </td>
+
+            `;
+
+
+            body.appendChild(row);
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   CLEAR SCOREBOARD
+========================================================= */
+
+function clearScoreboard(){
+
+    const confirmClear =
+        confirm(
+            "Sigurado ka bang gusto mong burahin ang lahat ng scores?"
+        );
+
+    if(!confirmClear) return;
+
+
+    localStorage.removeItem(
+        "rizalDetectiveScores"
+    );
+
+
+    renderScoreboard();
+
+}
+
+
+/* =========================================================
+   PLAY AGAIN
+========================================================= */
+
+function playAgain(){
+
+    currentQuestion = 0;
+    score = 0;
+    answerLocked = false;
+
+    document.getElementById(
+        "scoreDisplay"
+    ).textContent = "0";
+
+    showScreen(
+        "quizScreen"
+    );
+
+    renderQuestion();
+
+}
+
+
+/* =========================================================
+   BACK TO HOME
+========================================================= */
+
+function backToStart(){
+
+    document.getElementById(
+        "studentName"
+    ).value = "";
+
+    studentName = "";
+
+    currentQuestion = 0;
+    score = 0;
+    answerLocked = false;
+
+    showScreen(
+        "startScreen"
+    );
+
+}
+
+
+/* =========================================================
+   DARK / LIGHT MODE
+========================================================= */
+
+function toggleTheme(){
+
+    document.body.classList.toggle(
+        "light"
+    );
+
+
+    const isLight =
+        document.body.classList.contains(
+            "light"
+        );
+
+
+    document.getElementById(
+        "themeBtn"
+    ).textContent =
+        isLight
+            ? "🌙 DARK"
+            : "☀️ LIGHT";
+
+
+    localStorage.setItem(
+        "rizalTheme",
+        isLight
+            ? "light"
+            : "dark"
+    );
+
+}
+
+
+function loadTheme(){
+
+    const savedTheme =
+        localStorage.getItem(
+            "rizalTheme"
+        );
+
+
+    if(savedTheme === "light"){
+
+        document.body.classList.add(
+            "light"
+        );
+
+        document.getElementById(
+            "themeBtn"
+        ).textContent =
+            "🌙 DARK";
+
+    }
+
+}
+
+
+/* =========================================================
+   AUDIO SYSTEM
+   DIFFERENT SOUND FOR CORRECT / WRONG
+========================================================= */
+
+function getAudioContext(){
+
+    const AudioContext =
+        window.AudioContext ||
+        window.webkitAudioContext;
+
+
+    if(!AudioContext){
+
+        return null;
+
+    }
+
+
+    if(!window.rizalAudioContext){
+
+        window.rizalAudioContext =
+            new AudioContext();
+
+    }
+
+
+    return window.rizalAudioContext;
+
+}
+
+
+/* =========================================================
+   CORRECT SOUND
+   BRIGHT SUCCESS CHIME
+========================================================= */
+
+async function playCorrectSound(){
+
+    try{
+
+        const ctx =
+            getAudioContext();
+
+        if(!ctx) return;
+
+
+        if(ctx.state === "suspended"){
+
+            await ctx.resume();
+
+        }
+
+
+        const now =
+            ctx.currentTime;
+
+
+        const master =
+            ctx.createGain();
+
+        master.gain.setValueAtTime(
+            0.75,
+            now
+        );
+
+        master.connect(
+            ctx.destination
+        );
+
+
+        const notes = [
+            {
+                frequency:523.25,
+                time:0
+            },
+            {
+                frequency:659.25,
+                time:.10
+            },
+            {
+                frequency:783.99,
+                time:.20
+            },
+            {
+                frequency:1046.50,
+                time:.30
+            }
+        ];
+
+
+        notes.forEach(note=>{
+
+            const osc =
+                ctx.createOscillator();
+
+            const gain =
+                ctx.createGain();
+
+
+            osc.type =
+                "sine";
+
+
+            osc.frequency.setValueAtTime(
+                note.frequency,
+                now + note.time
+            );
+
+
+            gain.gain.setValueAtTime(
+                0.0001,
+                now + note.time
+            );
+
+
+            gain.gain.exponentialRampToValueAtTime(
+                0.55,
+                now + note.time + .025
+            );
+
+
+            gain.gain.exponentialRampToValueAtTime(
+                0.0001,
+                now + note.time + .42
+            );
+
+
+            osc.connect(gain);
+            gain.connect(master);
+
+
+            osc.start(
+                now + note.time
+            );
+
+
+            osc.stop(
+                now + note.time + .46
+            );
+
+        });
+
+    }
+
+    catch(error){
+
+        console.log(
+            "Correct sound error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   WRONG SOUND
+   LOW ERROR BUZZ
+========================================================= */
+
+async function playWrongSound(){
+
+    try{
+
+        const ctx =
+            getAudioContext();
+
+        if(!ctx) return;
+
+
+        if(ctx.state === "suspended"){
+
+            await ctx.resume();
+
+        }
+
+
+        const now =
+            ctx.currentTime;
+
+
+        const master =
+            ctx.createGain();
+
+        master.gain.setValueAtTime(
+            0.75,
+            now
+        );
+
+        master.connect(
+            ctx.destination
+        );
+
+
+        const notes = [
+            {
+                frequency:330,
+                time:0
+            },
+            {
+                frequency:247,
+                time:.18
+            },
+            {
+                frequency:165,
+                time:.36
+            }
+        ];
+
+
+        notes.forEach(note=>{
+
+            const osc =
+                ctx.createOscillator();
+
+            const gain =
+                ctx.createGain();
+
+
+            osc.type =
+                "square";
+
+
+            osc.frequency.setValueAtTime(
+                note.frequency,
+                now + note.time
+            );
+
+
+            gain.gain.setValueAtTime(
+                0.0001,
+                now + note.time
+            );
+
+
+            gain.gain.exponentialRampToValueAtTime(
+                0.38,
+                now + note.time + .02
+            );
+
+
+            gain.gain.exponentialRampToValueAtTime(
+                0.0001,
+                now + note.time + .28
+            );
+
+
+            osc.connect(gain);
+            gain.connect(master);
+
+
+            osc.start(
+                now + note.time
+            );
+
+
+            osc.stop(
+                now + note.time + .32
+            );
+
+        });
+
+    }
+
+    catch(error){
+
+        console.log(
+            "Wrong sound error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   CONFETTI
+========================================================= */
+
+function simpleConfetti(){
+
+    const pieces = 24;
+
+
+    for(
+        let i=0;
+        i<pieces;
+        i++
+    ){
+
+        const piece =
+            document.createElement(
+                "div"
+            );
+
+
+        piece.className =
+            "confetti";
+
+
+        piece.style.left =
+            Math.random() * 100 +
+            "vw";
+
+
+        piece.style.background =
+            getConfettiColor();
+
+
+        piece.style.animationDuration =
+            (
+                650 +
+                Math.random() * 500
+            ) +
+            "ms";
+
+
+        piece.style.transform =
+            `rotate(${Math.random()*360}deg)`;
+
+
+        document.body.appendChild(
+            piece
+        );
+
+
+        setTimeout(()=>{
+
+            piece.remove();
+
+        },1300);
+
+    }
+
+}
+
+
+function finalConfetti(){
+
+    for(
+        let i=0;
+        i<60;
+        i++
+    ){
+
+        setTimeout(()=>{
+
+            simpleConfetti();
+
+        },i*15);
+
+    }
+
+}
+
+
+function getConfettiColor(){
+
+    const colors = [
+
+        "#e8b94e",
+        "#62afff",
+        "#49d982",
+        "#ff6576",
+        "#b88cff"
+
+    ];
+
+
+    return colors[
+        Math.floor(
+            Math.random() *
+            colors.length
+        )
+    ];
+
+}
+
+
+/* =========================================================
+   SECURITY FOR SCOREBOARD NAME
+========================================================= */
+
+function escapeHTML(text){
+
+    return text
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================================
+   LOAD SAVED THEME
+========================================================= */
+
+loadTheme();
+
+</script>
+
+</body>
+</html>
